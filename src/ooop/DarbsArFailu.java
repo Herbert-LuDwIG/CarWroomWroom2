@@ -10,12 +10,12 @@ import javax.swing.JOptionPane;
 
 public class DarbsArFailu {
 
-	public static void save(Car car, String fName) {
+	public static void save(Car car, String fName, int num) {
 		
 		try {
 			FileWriter fw = new FileWriter(fName, true);
 			PrintWriter pw = new PrintWriter(fw);	
-			pw.println(car.readAtributes());
+			pw.println(car.readAtributes(num));
 			pw.println("+".repeat(20));
 			pw.close();
 			JOptionPane.showMessageDialog(null, "Car has been saved in " + fName);

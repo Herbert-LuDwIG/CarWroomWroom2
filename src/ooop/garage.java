@@ -15,15 +15,20 @@ import javax.swing.Timer;
 
 public class  garage{
 	static ArrayList<String> tips = new ArrayList<>();
+	static ArrayList<String> CarName = new ArrayList<>();	
+	static ArrayList<String> Color1 = new ArrayList<>();	
+	static ArrayList<String> Model = new ArrayList<>();	
+	static ArrayList<Integer> bDay1 = new ArrayList<>();	
 	public static void main(String[] args) {
+		
 		
 		fileDelete(".");
 		init();	
-		double credits = 1500;
-		int fuel = 90;
+		double credits = 2000;
+		int fuel = 90, cNum = -1;
 		String menu, fileName = "cars.txt";
 		Car car = null;
-		String[] actionList = {"Buy a car (1000 credits)", "Interact with a car","Check for cash", "Save", "Check saved car", "=== CASINO ===",  "Close"};
+		String[] actionList = {"Buy a car (1000 credits)","Select a car", "Interact with a car","Check for cash", "Save", "Check saved car", "=== CASINO ===",  "Close"};
 		
 		
 		do {
@@ -34,23 +39,31 @@ public class  garage{
 		 
 		 switch(menu){
 		
+		 case "Select a car":
+			 if(car != null) {
+				  cNum = Car.select(cNum, CarName, CarName, CarName, bDay1); 
+			  } else {
+				  JOptionPane.showMessageDialog(null, "You need a car to perfom methods!", "Warning", JOptionPane.WARNING_MESSAGE);
+			  }
+			
+		 break;
 		 case "Buy a car (1000 credits)": 
 		  if(credits >= 1000) {
-		String carName, model, Color, way;
-		 int bDay;
-		 boolean strap;
-		 
+		//String carName, model, Color, way;
+		 //int bDay;
+			  String way;
 		 //String
-		 carName = virknesParbaude("Car's brand (Audi, Toyota, BMW)", "Audi"); 
-		 model = virknesParbaude("Car's model (A3, X5)", "A3"); 
-		 Color = virknesParbaude("Car's color", "Grey"); 
+		 CarName.add(virknesParbaude("Car's brand (Audi, Toyota, BMW)", "Audi")); 
+		 Model.add(virknesParbaude("Car's model (A3, X5)", "A3")); 
+		 Color1.add(virknesParbaude("Car's color", "Grey")); 
 		 way = "car"; 
 		 
 		 //int
-		 bDay = skaitlaParbaude("Car's release year (not olser than 50 years)", (Year.now().getValue()) - 50, (Year.now().getValue()));
+		 bDay1.add(skaitlaParbaude("Car's release year (not older than 50 years)", (Year.now().getValue()) - 50, (Year.now().getValue())));
 
-		 car = new Car(carName, model, Color, bDay, way, fuel);
+		 car = new Car(CarName, Model, Color1, bDay1, way, fuel);
 		 credits -= 1000;	
+		 cNum++;
 		 }else {
 			 car.error();
 		 }
@@ -59,7 +72,7 @@ public class  garage{
 		 //Izsaukt metodi
 		 case "Interact with a car":
 			 if(car != null) {
-				 String[] methodList = {"Pet", "Refuel", "Change a color", "Sell car"};
+				 String[] methodList = {"Pet", "Refuel", "Change color", "Sell car"};
 				 
 				 String method = (String) JOptionPane.showInputDialog(null, "Choose a method", "Method chose", JOptionPane.QUESTION_MESSAGE,null, methodList, methodList[0]);
 				 
@@ -69,8 +82,8 @@ public class  garage{
 				 
 				 switch(method){
 				 	case "Pet": car.murrat(); break;
-				 	case "Read atributes": JOptionPane.showMessageDialog(null, car.readAtributes(), "Information", JOptionPane.INFORMATION_MESSAGE);  break;
-				 	case "Refuel": String way = "refuel"; car.Refuel(credits, fuel); break;
+				 	case "Read atributes": JOptionPane.showMessageDialog(null, car.readAtributes(cNum), "Information", JOptionPane.INFORMATION_MESSAGE);  break;
+				 	case "Refuel": String way = "refuel"; credits = car.Refuel(credits, fuel); break;
 				    case "Sell car":JOptionPane.showMessageDialog(null, "Your car was sold for 1000 credits"); car = null; credits += 1000; fileDelete(".");
 				 	
 				 }
@@ -83,7 +96,7 @@ public class  garage{
 			 //Saglabāt failā
 		  case "Save": 
 			  if(car != null) {
-				  DarbsArFailu.save(car, fileName);
+				  DarbsArFailu.save(car, fileName, cNum);
 			  } else {
 				  JOptionPane.showMessageDialog(null, "You need a cat to perfom methods!", "Warning", JOptionPane.WARNING_MESSAGE);
 			  }

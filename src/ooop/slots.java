@@ -82,11 +82,11 @@ public class slots {
             try {
                 izvele = Integer.parseInt(ievade);
 
-                if (izvele < 1 || izvele > 5) {
+                if (izvele < 1 || izvele > 3) {
                     JOptionPane.showMessageDialog(
                         null,
-                        "Nepareiza izvele!",
-                        "Kļūda",
+                        "Incorrect input!",
+                        "Error",
                         JOptionPane.ERROR_MESSAGE
                     );
                     continue;
@@ -95,15 +95,18 @@ public class slots {
             } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(
                     null,
-                    "Kļūda! Ievadi veselu skaitli.",
-                    "Kļūda",
+                    "Integer number input is needed.",
+                    "Error",
                     JOptionPane.ERROR_MESSAGE
                 );
                 continue;
             }
 
             if (izvele == 1) {
-
+            	if (credits < bet) {
+                    JOptionPane.showMessageDialog(null, "Not enough credits!");
+                    return credits;
+                }
          
 
                 credits -= 150;

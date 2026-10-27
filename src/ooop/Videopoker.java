@@ -127,31 +127,31 @@ public class Videopoker {
 
         switch (kombinacija) {
             case "Royal Flush":
-            	win = 500;
+            	win = 1000;
                 break;
             case "Straight Flush":
-            	win = 250;
+            	win = 500;
                 break;
             case "Four of a Kind":
-            	win = 150;
+            	win = 750;
                 break;
             case "Full House":
-            	win = 100;
+            	win = 600;
                 break;
             case "Flush":
-            	win = 75;
+            	win = 650;
                 break;
             case "Straight":
-                win = 60;
+                win = 350;
                 break;
             case "Three of a Kind":
-                win = 45;
+                win = 325;
                 break;
             case "Two Pair":
-                win = 30;
+                win = 300;
                 break;
             case "One Pair":
-                win = 20;
+                win = 200;
                 break;
             case "High Card":
                 win = 0;
